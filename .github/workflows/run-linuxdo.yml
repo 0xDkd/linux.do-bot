@@ -5,8 +5,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: '0 */6 * * *'  # 对应中国时间的每天凌晨3点
-  workflow_dispatch: # 允许手动触发
+    - cron: '0 0 * * *'  # 每天 UTC 时间午夜运行一次
 
 jobs:
   run-linuxdo:
@@ -28,12 +27,9 @@ jobs:
 
     - name: Run script
       env:
-        TZ: Asia/Shanghai  # 设置时区为中国时区
         LINUXDO_USERNAME: ${{ secrets.LINUXDO_USERNAME }}
         LINUXDO_PASSWORD: ${{ secrets.LINUXDO_PASSWORD }}
         LIKE_PROBABILITY: ${{ secrets.LIKE_PROBABILITY }}
-        REPLY_PROBABILITY: ${{ secrets.REPLY_PROBABILITY }}
-        COLLECT_PROBABILITY: ${{ secrets.COLLECT_PROBABILITY }}
         MAX_TOPICS: ${{ secrets.MAX_TOPICS }}
         USE_WXPUSHER: ${{ secrets.USE_WXPUSHER }}
         APP_TOKEN: ${{ secrets.APP_TOKEN }}
